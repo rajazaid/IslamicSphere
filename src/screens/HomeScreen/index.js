@@ -1,9 +1,11 @@
 // HomeScreen.js
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Switch } from 'react-native';
+import {ImageBackground, View, Text, ScrollView, StyleSheet, TouchableOpacity, Switch } from 'react-native';
+import { StatusBar } from 'react-native';
 import { Card } from 'react-native-paper';
 import axios from 'axios';
 import { Audio } from 'expo-av';
+
 
 const HomeScreen = () => {
   const [currentTime, setCurrentTime] = useState('');
@@ -141,6 +143,8 @@ const HomeScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
+      <ImageBackground source={require('../../../assets/images/bg.jpg')} style={styles.backgroundImage}>
+        <View style={styles.bg}>
       {/* Current Time */}
       <View style={styles.timeContainer}>
         <Text style={styles.largeText}>{currentTime}</Text>
@@ -150,6 +154,8 @@ const HomeScreen = () => {
       <View style={styles.dateContainer}>
         <Text style={styles.dateText}>{islamicDate}</Text>
       </View>
+      </View>
+      </ImageBackground>
 
       {/* Upcoming Prayer Time */}
       <Card style={styles.card}>
@@ -186,7 +192,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#004d40', // Dark green background color
+    backgroundColor: 'black', // Dark green background color
   },
   timeContainer: {
     marginTop:45,
@@ -210,7 +216,7 @@ const styles = StyleSheet.create({
   card: {
     margin: 10,
     padding: 15,
-    backgroundColor: 'white',
+    backgroundColor: 'gray',
     borderRadius: 10,
   },
   cardTitle: {
@@ -237,6 +243,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginRight: 10,
   },
+  backgroundImage:{
+    flex: 1,
+    resizeMode: 'cover', // or 'stretch' as per your preference
+    justifyContent: 'center',
+  },
+  bg:{
+    height:300,
+  }
 });
 
 export default HomeScreen;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -11,12 +12,12 @@ import ForgotPasswordScreen from '../../screens/ForgotPasswordScreen';
 import NewPasswordScreen from '../../screens/NewPasswordScreen';
 import HomeScreen from '../../screens/HomeScreen';
 import QiblaDirectionApp from '../../screens/QiblaScreen';
-import NearbyMosquesApp from '../../screens/mosque';
+import calendar from '../../screens/Calender';
 import AyahSerch from '../../screens/AyahSearch';
 import HadithSearch from '../../screens/Calender';
 import QuranScreen from '../../screens/QuranScreen';
 import BookmarkScreen from '../../screens/bookmarkscreen';
-import SurahListScreen from '../../screens/surahscreen';
+import SurahListScreen from '../../screens/SurahList';
 import AzkarScreen from '../../screens/AzkarScreen';
 import NamesOfAllahScreen from '../../screens/NamesOfAllahScreen';
 import NamesOfMuhammadScreen from '../../screens/NamesOfMuhammadScreen';
@@ -25,6 +26,9 @@ import bookscreen from '../../screens/HadeesSearch/HadesBooksScreen/bookscreen';
 import HadithBookmarkScreen from '../../screens/HadeesSearch/HadesBooksScreen/bookmark';
 import prayertracking from '../../screens/PrayerTracking';
 import HadithBooksScreen from '../../screens/HadeesSearch/books';
+import SurahDetailScreen from '../../screens/SurahDetail';
+
+
 // Additional screen for the Home stack
 
 const Tab = createBottomTabNavigator();
@@ -37,7 +41,16 @@ const Stack = createNativeStackNavigator();
 const HomeStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: true}}>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} options={{
+          title: 'Sign in',
+          headerStyle: {
+            backgroundColor: '#2f4f4f',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}/>
      {/* Additional screen */}
       {/* Add more additional screens for the Home stack if needed */}
     </Stack.Navigator>
@@ -46,7 +59,9 @@ const HomeStack = () => {
 
 const QuranStack = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: true}} initialRouteName='AyahSearch'>
+    <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='AyahSearch'>
+      <Stack.Screen name="SurahList" component={SurahListScreen} />
+      <Stack.Screen name="SurahDetail" component={SurahDetailScreen} />
       <Stack.Screen name="Quran" component={QuranScreen} />
       <Stack.Screen name="AyahSearch" component={AyahSerch} />
       {/* Add additional screens for the Quran stack if needed */}
@@ -67,7 +82,7 @@ const SurahStack = () => {
 const MoreStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Prayer" component={QiblaDirectionApp} />
+      <Stack.Screen name="Calendar" component={calendar} />
       {/* Add additional screens for the More stack if needed */}
     </Stack.Navigator>
   );
@@ -106,7 +121,7 @@ const TabNavigation = () => {
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
-          backgroundColor: '#004d40', // Dark green background color for the bottom tab navigator
+          backgroundColor: '#2f4f4f', // Dark green background color for the bottom tab navigator
         },
       })}
     >

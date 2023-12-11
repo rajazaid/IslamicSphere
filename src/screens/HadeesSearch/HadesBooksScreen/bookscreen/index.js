@@ -148,12 +148,12 @@ console.log(selectedChapter)
         <Text>Loading...</Text>
       )}
       {/* Add a button to navigate to the BookmarkScreen */}
-      <Button
+      {/* <Button
         title="View Bookmarks"
         onPress={navigateToBookmarks}
         buttonStyle={styles.viewBookmarksButton}
         containerStyle={styles.viewBookmarksButtonContainer}
-      />
+      /> */}
     </View>
   );
 };

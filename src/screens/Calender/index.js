@@ -46,8 +46,8 @@ const IslamicEventsPage = () => {
 
   // Add your Islamic events with corresponding dates and details to highlight on the calendar
   const [islamicEvents, setIslamicEvents] = useState([
-    { date: '2023-03-01', name: 'Event 1', details: 'Details for Event 1', reminder: false },
-    { date: '2023-03-15', name: 'Event 2', details: 'Details for Event 2', reminder: false },
+    { date: '2023-03-01', name: '9 Muharram', details: 'Details for Event 1', reminder: false },
+    { date: '2023-03-15', name: '10 Muharram', details: 'Details for Event 2', reminder: false },
     { date: '2023-11-26', name: 'Event 3', details: 'Details for Event 3', reminder: false },
     // Add more events as needed
   ]);
