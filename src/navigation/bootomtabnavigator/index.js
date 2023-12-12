@@ -27,6 +27,8 @@ import HadithBookmarkScreen from '../../screens/HadeesSearch/HadesBooksScreen/bo
 import prayertracking from '../../screens/PrayerTracking';
 import HadithBooksScreen from '../../screens/HadeesSearch/books';
 import SurahDetailScreen from '../../screens/SurahDetail';
+import namaztiming from '../../screens/namaztiming';
+import mosque from '../../screens/mosque';
 
 
 // Additional screen for the Home stack
@@ -89,7 +91,10 @@ const MoreStack = () => {
 };
 const PrayerStack = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator screenOptions={{headerShown: true}}>
+      <Stack.Screen name="Prayer" component={namaztiming} />
+      <Stack.Screen name="Mosque" component={mosque} />
+      
       <Stack.Screen name="More" component={QiblaDirectionApp} />
       {/* Add additional screens for the More stack if needed */}
     </Stack.Navigator>
