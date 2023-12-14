@@ -12,7 +12,6 @@ const QuranSearch = () => {
     try {
       console.log('Search button pressed');
       setLoading(true);
-      // Clear the previous results
       setAyahs([]);
 
       const response = await axios.get(
@@ -24,18 +23,16 @@ const QuranSearch = () => {
       console.log('API Response:', response);
 
       if (response.data && response.data.data && response.data.data.matches) {
-        // Extract Ayahs from the API response
+  
         const newAyahs = response.data.data.matches;
         console.log('New Ayahs:', newAyahs);
 
         setAyahs(newAyahs);
       } else {
         console.error('Invalid API response format:', response.data);
-        // Optionally, you can setAyahs([]) here to clear the FlatList in case of an error
       }
     } catch (error) {
       console.error('Error fetching Ayahs:', error.message);
-      // Optionally, you can setAyahs([]) here to clear the FlatList in case of an error
     } finally {
       setLoading(false);
     }
@@ -66,8 +63,8 @@ const QuranSearch = () => {
         keyExtractor={(item) => item.number.toString()}
         renderItem={renderItem}
         ListEmptyComponent={<Text style={styles.emptyText}>No Ayahs found</Text>}
-        initialNumToRender={10} // Adjust as needed
-        maxToRenderPerBatch={5} // Adjust as needed
+        initialNumToRender={10} 
+        maxToRenderPerBatch={5}
       />
     </View>
   );

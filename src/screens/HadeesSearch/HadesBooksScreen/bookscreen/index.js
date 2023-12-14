@@ -1,4 +1,4 @@
-// src/screens/HadithBookScreen.js
+
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet,TextInput, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -28,7 +28,7 @@ const HadithBookScreen = ({ route }) => {
   }, [book]);
 
   useEffect(() => {
-    // Load bookmarks from AsyncStorage
+
     const loadBookmarks = async () => {
       try {
         const storedBookmarks = await AsyncStorage.getItem('bookmarks');
@@ -56,11 +56,11 @@ const HadithBookScreen = ({ route }) => {
     const isBookmarked = bookmarks.some((bookmark) => bookmark.info === hadith.info);
 
     if (isBookmarked) {
-      // Remove the hadith from bookmarks
+      
       const updatedBookmarks = bookmarks.filter((bookmark) => bookmark.info !== hadith.info);
       saveBookmarks(updatedBookmarks);
     } else {
-      // Add the hadith to bookmarks
+      
       const updatedBookmarks = [...bookmarks, hadith];
       saveBookmarks(updatedBookmarks);
     }
@@ -87,7 +87,7 @@ console.log(selectedChapter)
       <Text style={styles.info}>{item.info}</Text>
       <Text style={styles.narratedBy}>{item.by}</Text>
       <Text style={styles.hadithText}>{item.text}</Text>
-      <TouchableOpacity onPress={() => toggleBookmark(item)}>
+      {/* <TouchableOpacity onPress={() => toggleBookmark(item)}>
         <Text
           style={[
             styles.bookmarkButton,
@@ -96,7 +96,7 @@ console.log(selectedChapter)
         >
           {bookmarks.some((bookmark) => bookmark.info === item.info) ? 'Bookmarked' : 'Bookmark'}
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#004d40',
+    backgroundColor: '#006400',
   },
   title: {
     fontSize: 24,
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   },
   viewBookmarksButtonContainer: {
     marginVertical: 10,
-    width: '50%', // Adjust the width as needed
+    width: '50%', 
     alignSelf: 'center',
   },
   viewBookmarksButton: {

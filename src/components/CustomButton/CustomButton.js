@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
 
   text_TERTIARY: {
-    color: 'white',
+    color: '#4169e1',
   },
 });
 

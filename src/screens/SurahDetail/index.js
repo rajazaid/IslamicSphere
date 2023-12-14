@@ -1,4 +1,3 @@
-// SurahDetailScreen.js
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, ScrollView, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
@@ -40,6 +39,7 @@ const SurahDetailScreen = () => {
 
     fetchAyahs();
   }, [surah]);
+
   useEffect(() => {
     // Filter Ayahs based on the keyword
     const filtered = ayahs.filter(
@@ -51,7 +51,7 @@ const SurahDetailScreen = () => {
   }, [keyword, ayahs]);
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.input}
@@ -60,25 +60,27 @@ const SurahDetailScreen = () => {
           onChangeText={(text) => setKeyword(text)}
         />
       </View>
-      <Card>
-        <Card.Title>{surah.englishName}</Card.Title>
-        <Card.Divider />
-        <Text style={styles.translatedName}>{surah.name}</Text>
-        {filteredAyahs.map((ayah) => (
-          <Card key={ayah.number} containerStyle={styles.ayahCard}>
-            <Text style={styles.ayahText}>{ayah.text}</Text>
-            <Text style={styles.translationText}>{ayah.translation}</Text>
-          </Card>
-        ))}
-      </Card>
-    </ScrollView>
+      <ScrollView style={styles.scrollView}>
+        <Card>
+          <Card.Title>{surah.englishName}</Card.Title>
+          <Card.Divider />
+          <Text style={styles.translatedName}>{surah.name}</Text>
+          {filteredAyahs.map((ayah) => (
+            <Card key={ayah.number} containerStyle={styles.ayahCard}>
+              <Text style={styles.ayahText}>{ayah.text}</Text>
+              <Text style={styles.translationText}>{ayah.translation}</Text>
+            </Card>
+          ))}
+        </Card>
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#004d40', // Dark green background color
+    backgroundColor: '#006400', // Dark green background color
   },
   translatedName: {
     fontSize: 18,
@@ -92,25 +94,32 @@ const styles = StyleSheet.create({
   ayahText: {
     fontSize: 28,
     marginBottom: 5,
-    color: 'black', // Change text color as needed
-    fontFamily: 'ArabicFont', // Use a custom Arabic font here
+    color: 'black', 
+    // fontFamily: 'ArabicFont', 
   },
-  translationText: {
-    fontSize: 18,
+  translationText: {    fontSize: 18,
     color: 'gray',
-    fontStyle:'italic', // Change text color as needed
+    fontStyle: 'italic', 
   },
   searchContainer: {
     padding: 10,
-    backgroundColor: '#fff', // White background color
+    marginBottom: 0,
+    backgroundColor: '#006400', // White background color
+    zIndex: 1,
   },
   input: {
     height: 40,
     borderColor: 'gray',
-    borderWidth: 1,
+    borderWidth: 2,
+    borderRadius: 10,
     padding: 10,
     backgroundColor: 'white',
+  },
+  scrollView: {
+    flex: 1,
+    backgroundColor: '#006400', // Dark green background color
   },
 });
 
 export default SurahDetailScreen;
+

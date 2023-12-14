@@ -215,8 +215,9 @@ const styles = StyleSheet.create({
   },
   card: {
     margin: 10,
+    marginTop:3,
     padding: 15,
-    backgroundColor: 'gray',
+    backgroundColor: 'white',
     borderRadius: 10,
   },
   cardTitle: {
@@ -245,11 +246,11 @@ const styles = StyleSheet.create({
   },
   backgroundImage:{
     flex: 1,
-    resizeMode: 'cover', // or 'stretch' as per your preference
+    resizeMode: 'cover', 
     justifyContent: 'center',
   },
   bg:{
-    height:300,
+    height:270,
   }
 });
 

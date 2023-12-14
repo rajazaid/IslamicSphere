@@ -33,11 +33,13 @@ sendPasswordResetEmail(auth, username)
       <View style={styles.root}>
         <Text style={styles.title}>Reset your password</Text>
 
+
         <CustomInput
-          placeholder="Email"
-          value={username}
-          setValue={setUsername}
-        />
+        placeholder="Email"
+        value={username}
+        setValue={setUsername}
+        iconName="mail-outline" // Ionicons icon name for email
+      />
 
         <CustomButton text="Send" onPress={onSendPressed} />
 
@@ -55,15 +57,15 @@ const styles = StyleSheet.create({
   root: {
     flex:1,
     justifyContent:'center',
-    backgroundColor: '#2f4f4f',
+    backgroundColor: 'white',
     alignItems: 'center',
     padding: 20,
-    height:700,
+    height:800,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'white',
+    color: 'black',
     margin: 20,
   },
   text: {

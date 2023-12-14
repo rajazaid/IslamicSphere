@@ -90,7 +90,7 @@ const QuranScreen = () => {
       : undefined;
   }, [sound]);
   const navigateToBookmarks = () => {
-    navigation.navigate('Bookmark'); // Assuming 'Bookmarks' is the name of the bookmark screen
+    navigation.navigate('Bookmark'); 
   };
   return (
     <ScrollView style={styles.container}>
@@ -119,17 +119,17 @@ const QuranScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212', // Dark background color
+    backgroundColor: '#121212', 
     padding: 10,
   },
   surahContainer: {
     marginBottom: 20,
     padding: 10,
-    backgroundColor: '#323232', // Darker card background color
+    backgroundColor: '#323232', 
     borderRadius: 8,
   },
   surahName: {
-    color: '#03a9f4', // Light blue Surah name color
+    color: '#03a9f4', 
     fontSize: 20,
     fontWeight: 'bold',
   },
@@ -139,25 +139,25 @@ const styles = StyleSheet.create({
   ayahContainer: {
     padding: 10,
     marginBottom: 10,
-    backgroundColor: '#323232', // Darker card background color
+    backgroundColor: '#323232', 
     borderRadius: 8,
   },
   ayahText: {
-    color: '#ffffff', // White text color
+    color: '#ffffff', 
     fontSize: 16,
   },
   playButton: {
-    color: '#03a9f4', // Light blue text color
+    color: '#03a9f4',
     fontSize: 14,
     marginTop: 5,
   },
   bookmarkButton: {
-    color: '#03a9f4', // Light blue text color
+    color: '#03a9f4', 
     fontSize: 14,
     marginTop: 5,
   },
   bookmarkButton: {
-    color: '#03a9f4', // Light blue bookmark text color
+    color: '#03a9f4', 
     fontSize: 14,
     marginTop: 5,
   },
@@ -165,11 +165,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 20,
     padding: 10,
-    backgroundColor: '#03a9f4', // Light blue background color
+    backgroundColor: '#03a9f4', 
     borderRadius: 8,
   },
   bookmarkNavigatorText: {
-    color: '#ffffff', // White text color
+    color: '#ffffff', 
     fontSize: 16,
   },
 });

@@ -41,18 +41,18 @@ LocaleConfig.defaultLocale = 'en';
 const IslamicEventsPage = () => {
   const [markedDates, setMarkedDates] = useState({
     '2023-02-24': { marked: true },
-    // Add more marked dates as needed
+
   });
 
-  // Add your Islamic events with corresponding dates and details to highlight on the calendar
+ 
   const [islamicEvents, setIslamicEvents] = useState([
     { date: '2023-03-01', name: '9 Muharram', details: 'Details for Event 1', reminder: false },
     { date: '2023-03-15', name: '10 Muharram', details: 'Details for Event 2', reminder: false },
     { date: '2023-11-26', name: 'Event 3', details: 'Details for Event 3', reminder: false },
-    // Add more events as needed
+   
   ]);
 
-  // Update markedDates with Islamic events
+ 
   useEffect(() => {
     const updatedMarkedDates = { ...markedDates };
     islamicEvents.forEach((event) => {
@@ -81,7 +81,6 @@ const IslamicEventsPage = () => {
           {
             text: 'OK',
             onPress: () => {
-              // Handle event details confirmation
             },
           },
         ]);
@@ -97,7 +96,7 @@ const IslamicEventsPage = () => {
 
   const scheduleReminder = async (event) => {
     const reminderDate = new Date(event.date);
-    reminderDate.setMinutes(980); // Set the reminder time, for example, 9 AM
+    reminderDate.setMinutes(980);
 
     await Notifications.scheduleNotificationAsync({
       content: {
@@ -116,7 +115,7 @@ const IslamicEventsPage = () => {
     Notifications.requestPermissionsAsync();
 
     return () => {
-      // Clean up if needed
+     
     };
   }, []);
 
@@ -135,7 +134,7 @@ const IslamicEventsPage = () => {
             </View>
           )}
           theme={{
-            calendarBackground: '#333',
+            calendarBackground: '#004d40',
             textSectionTitleColor: '#fff',
             selectedDayBackgroundColor: '#555',
             selectedDayTextColor: '#fff',
@@ -191,7 +190,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#111', // Dark background color
+    backgroundColor: 'black', 
   },
   section: {
     marginBottom: 20,
@@ -200,13 +199,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#fff', // White text color
+    color: '#fff', 
   },
   eventContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#222', // Darker background color
+    backgroundColor: '#222', 
     borderRadius: 10,
     padding: 15,
     marginBottom: 15,

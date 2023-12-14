@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import * as Location from 'expo-location';
+import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 
 const PrayerTimesApp = () => {
+  const navigation = useNavigation();
   const [location, setLocation] = useState(null);
   const [prayerTimes, setPrayerTimes] = useState(null);
   const [reminders, setReminders] = useState({
@@ -15,6 +17,7 @@ const PrayerTimesApp = () => {
     Maghrib: false,
     Isha: false,
   });
+  const [loading, setLoading] = useState(true);
 
   const sound = useRef(new Audio.Sound());
 
@@ -41,7 +44,7 @@ const PrayerTimesApp = () => {
 
   useEffect(() => {
     return () => {
-      sound.current.unloadAsync(); // Unload the audio when the component unmounts
+      sound.current.unloadAsync(); 
     };
   }, []);
 
@@ -57,8 +60,10 @@ const PrayerTimesApp = () => {
 
       const prayerTimes = response.data.data.timings;
       setPrayerTimes(prayerTimes);
+      setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   };
 
@@ -93,14 +98,10 @@ const PrayerTimesApp = () => {
   );
 
   useEffect(() => {
-    
     const interval = setInterval(() => {
-     const currentTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+      const currentTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
 
-      console.log(currentTime)
-      console.log(prayer => prayerTimes[prayer])
-      if (prayerTimes && reminders[Object.keys(prayerTimes).find(prayer => prayerTimes[prayer] === "14:42")]) {
-        
+      if (prayerTimes && reminders[Object.keys(prayerTimes).find(prayer => prayerTimes[prayer] === currentTime)]) {
         playAzan();
       }
     }, 60000);
@@ -110,17 +111,31 @@ const PrayerTimesApp = () => {
 
   return (
     <View style={styles.container}>
-      {prayerTimes && (
-        <View style={styles.prayerTimesContainer}>
-          <View style={styles.prayerCardsContainer}>
-            <PrayerCard title="Fajr" time={prayerTimes.Fajr} prayer="Fajr" />
-            <PrayerCard title="Dhuhr" time={prayerTimes.Dhuhr} prayer="Dhuhr" />
-            <PrayerCard title="Asr" time={prayerTimes.Asr} prayer="Asr" />
-            <PrayerCard title="Maghrib" time={prayerTimes.Maghrib} prayer="Maghrib" />
-            <PrayerCard title="Isha" time={prayerTimes.Isha} prayer="Isha" />
-          </View>
-        </View>
-      )}
+      <View style={styles.navigationButtonsContainer}>
+        <TouchableOpacity
+          style={styles.navigationButton}
+          onPress={() => navigation.navigate('Qibla')}
+        >
+          <Ionicons name="compass" size={32} color="black" />
+          <Text style={styles.navigationButtonText}>Qibla Direction</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.navigationButton}
+          onPress={() => navigation.navigate('Mosque')}
+        >
+          <Ionicons name="search" size={32} color="black" />
+          <Text style={styles.navigationButtonText}>Search Mosques</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.prayerCardsContainer}>
+        <PrayerCard title="Fajr" time={loading ? 'Loading...' : prayerTimes?.Fajr} prayer="Fajr" />
+        <PrayerCard title="Dhuhr" time={loading ? 'Loading...' : prayerTimes?.Dhuhr} prayer="Dhuhr" />
+        <PrayerCard title="Asr" time={loading ? 'Loading...' : prayerTimes?.Asr} prayer="Asr" />
+        <PrayerCard title="Maghrib" time={loading ? 'Loading...' : prayerTimes?.Maghrib} prayer="Maghrib" />
+        <PrayerCard title="Isha" time={loading ? 'Loading...' : prayerTimes?.Isha} prayer="Isha" />
+      </View>
     </View>
   );
 };
@@ -129,7 +144,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#004d00',
+    backgroundColor: 'white',
   },
   prayerCard: {
     flexDirection: 'row',
@@ -147,6 +162,19 @@ const styles = StyleSheet.create({
   prayerCardsContainer: {
     marginTop: 16,
     flexDirection: 'column',
+  },
+  navigationButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 16,
+  },
+  navigationButton: {
+    alignItems: 'center',
+  },
+  navigationButtonText: {
+    fontSize: 14,
+    color: 'black',
+    marginTop: 8,
   },
 });
 

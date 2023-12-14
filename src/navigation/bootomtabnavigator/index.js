@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-native-elements';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -31,42 +31,47 @@ import namaztiming from '../../screens/namaztiming';
 import mosque from '../../screens/mosque';
 
 
-// Additional screen for the Home stack
-
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-// Stack for Unauthenticated Screens
-
-
-// Stack for Authenticated Screens
 const HomeStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: true}}>
-      <Stack.Screen name="Home" component={HomeScreen} options={{
-          title: 'Sign in',
-          headerStyle: {
-            backgroundColor: '#2f4f4f',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}/>
-     {/* Additional screen */}
-      {/* Add more additional screens for the Home stack if needed */}
+      <Stack.Screen name="Home" component={HomeScreen}           options={({ navigation }) => ({
+            headerRight: () => (
+              <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={() => {
+                navigation.navigate('SignIn');
+              }}
+            >
+              <Text style={styles.logoutButtonText}>Logout</Text>
+            </TouchableOpacity>
+            ),
+          })}/>
     </Stack.Navigator>
   );
 };
 
 const QuranStack = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='AyahSearch'>
-      <Stack.Screen name="SurahList" component={SurahListScreen} />
+    <Stack.Navigator screenOptions={{headerShown: true}} initialRouteName='SurahListScreen' >
+      <Stack.Screen name="SurahList" component={SurahListScreen}   options={({ navigation }) => ({
+            headerRight: () => (
+              <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={() => {
+                navigation.navigate('SignIn');
+              }}
+            >
+              <Text style={styles.logoutButtonText}>Logout</Text>
+            </TouchableOpacity>
+            ),
+          })}/>
       <Stack.Screen name="SurahDetail" component={SurahDetailScreen} />
       <Stack.Screen name="Quran" component={QuranScreen} />
       <Stack.Screen name="AyahSearch" component={AyahSerch} />
-      {/* Add additional screens for the Quran stack if needed */}
+
     </Stack.Navigator>
   );
 };
@@ -74,7 +79,18 @@ const QuranStack = () => {
 const SurahStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: true}}>
-      <Stack.Screen name="Al hadees" component={HadithBooksScreen} />
+      <Stack.Screen name="Al hadees" component={HadithBooksScreen}   options={({ navigation }) => ({
+            headerRight: () => (
+              <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={() => {
+                navigation.navigate('SignIn');
+              }}
+            >
+              <Text style={styles.logoutButtonText}>Logout</Text>
+            </TouchableOpacity>
+            ),
+          })}/>
       <Stack.Screen name="HadeesBook" component={bookscreen} />
       
     </Stack.Navigator>
@@ -83,20 +99,41 @@ const SurahStack = () => {
 
 const MoreStack = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Calendar" component={calendar} />
-      {/* Add additional screens for the More stack if needed */}
+    <Stack.Navigator screenOptions={{headerShown: true}}>
+      <Stack.Screen name="Calendar" component={calendar}   options={({ navigation }) => ({
+            headerRight: () => (
+              <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={() => {
+                navigation.navigate('SignIn');
+              }}
+            >
+              <Text style={styles.logoutButtonText}>Logout</Text>
+            </TouchableOpacity>
+            ),
+          })}/>
     </Stack.Navigator>
   );
 };
 const PrayerStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: true}}>
-      <Stack.Screen name="Prayer" component={namaztiming} />
+      <Stack.Screen name="Prayer" component={namaztiming}   options={({ navigation }) => ({
+            headerRight: () => (
+              <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={() => {
+                navigation.navigate('SignIn');
+              }}
+            >
+              <Text style={styles.logoutButtonText}>Logout</Text>
+            </TouchableOpacity>
+            ),
+          })}/>
       <Stack.Screen name="Mosque" component={mosque} />
       
-      <Stack.Screen name="More" component={QiblaDirectionApp} />
-      {/* Add additional screens for the More stack if needed */}
+      <Stack.Screen name="Qibla" component={QiblaDirectionApp} />
+
     </Stack.Navigator>
   );
 };
@@ -123,10 +160,10 @@ const TabNavigation = () => {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         headerShown:false,
-        tabBarActiveTintColor: 'white',
+        tabBarActiveTintColor: 'green',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
-          backgroundColor: '#2f4f4f', // Dark green background color for the bottom tab navigator
+          backgroundColor: 'white', 
         },
       })}
     >
@@ -138,5 +175,21 @@ const TabNavigation = () => {
     </Tab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  logoutButton: {
+    marginRight: 10,
+    padding: 8,
+    borderWidth: 1,    
+    borderColor: 'red', 
+    borderRadius: 5,     
+  },
+  logoutButtonText: {
+    color: 'red',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
+
 
 export default TabNavigation;

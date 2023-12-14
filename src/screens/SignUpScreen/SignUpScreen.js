@@ -1,15 +1,14 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import React, { useState } from 'react';
+import { View, Image, StyleSheet, useWindowDimensions, Text, Alert } from 'react-native';
+import Logo from '../../../assets/images/logo.jpg';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import SocialSignInButtons from '../../components/SocialSignInButtons';
-import {useNavigation} from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/native';
 import { FIREBASE_AUTH } from '../../../firebaseconfig';
-import { createUserWithEmailAndPassword} from 'firebase/auth';
-import { getAuth, sendEmailVerification } from "firebase/auth";
-import { User } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from 'firebase/auth';
+import { Ionicons } from '@expo/vector-icons';
 
-const auth = getAuth();
 const SignUpScreen = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -18,10 +17,11 @@ const SignUpScreen = () => {
 
   const navigation = useNavigation();
   const auth = FIREBASE_AUTH;
+  const { height } = useWindowDimensions();
 
-
-    const onRegisterPressed = async() => {
-      try{
+  const onRegisterPressed = async () => {
+    if(password===passwordRepeat){
+    try {
       const auth = getAuth();
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
@@ -34,23 +34,19 @@ const SignUpScreen = () => {
         'A verification email has been sent to your email address. Please check your inbox and follow the instructions to verify your email.',
         [{ text: 'OK', onPress: () => console.log('OK Pressed') }]
       );
-        navigation.navigate('SignIn');
+      navigation.navigate('SignIn');
+    } catch (error) {
+      console.log(error);
+      alert('Registration failed due to' + error.message);
     }
-      catch(error){
-        console.log(error);
-        alert("Registeration failed due to" + error.message)
-      }
-      finally{
-        
-      }
-      // validate user
-      
-    };
-
+  }
+  else{
+      alert("Password did not match")
+  }
+  };
 
   const onSignInPress = () => {
     navigation.navigate('SignIn');
-
   };
 
   const onTermsOfUsePressed = () => {
@@ -62,65 +58,61 @@ const SignUpScreen = () => {
   };
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.root}>
-        <Text style={styles.title}>Create an account</Text>
+    <View style={styles.root}>
 
-        <CustomInput
-          placeholder="Username"
-          value={username}
-          setValue={setUsername}
-        />
-        <CustomInput placeholder="Email" value={email} setValue={setEmail} />
-        <CustomInput
-          placeholder="Password"
-          value={password}
-          setValue={setPassword}
-          secureTextEntry
-        />
-        <CustomInput
-          placeholder="Repeat Password"
-          value={passwordRepeat}
-          setValue={setPasswordRepeat}
-          secureTextEntry
-        />
+      <Text style={styles.title}>Create an account</Text>
 
-        <CustomButton text="Register" onPress={onRegisterPressed} />
+      <CustomInput placeholder="Username" value={username} setValue={setUsername} iconName="person" />
+      <CustomInput placeholder="Email" value={email} setValue={setEmail} iconName="mail-outline" />
+      <CustomInput
+        placeholder="Password"
+        value={password}
+        setValue={setPassword}
+        secureTextEntry
+        iconName="lock-closed-outline"
+      />
+      <CustomInput
+        placeholder="Repeat Password"
+        value={passwordRepeat}
+        setValue={setPasswordRepeat}
+        secureTextEntry
+        iconName="lock-closed-outline"
+      />
 
-        <Text style={styles.text}>
-          By registering, you confirm that you accept our{' '}
-          <Text style={styles.link} onPress={onTermsOfUsePressed}>
-            Terms of Use
-          </Text>{' '}
-          and{' '}
-          <Text style={styles.link} onPress={onPrivacyPressed}>
-            Privacy Policy
-          </Text>
+      <CustomButton text="Register" onPress={onRegisterPressed} />
+
+      <Text style={styles.text}>
+        By registering, you confirm that you accept our{' '}
+        <Text style={styles.link} onPress={onTermsOfUsePressed}>
+          Terms of Use
+        </Text>{' '}
+        and{' '}
+        <Text style={styles.link} onPress={onPrivacyPressed}>
+          Privacy Policy
         </Text>
+      </Text>
 
-        <SocialSignInButtons />
+      <SocialSignInButtons />
 
-        <CustomButton
-          text="Have an account? Sign in"
-          onPress={onSignInPress}
-          type="TERTIARY"
-        />
-      </View>
-    </ScrollView>
+      <CustomButton text="Have an account? Sign in" onPress={onSignInPress} type="TERTIARY" />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
-    backgroundColor: '#2f4f4f',
+    backgroundColor: 'white',
     alignItems: 'center',
-    padding: 20,
+    padding: 30,
+    height: 1000,
+   
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'white',
+    color: 'black',
     margin: 10,
+    marginTop:50
   },
   text: {
     color: 'gray',
